@@ -2,7 +2,8 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/login" v-bind:hidden="$store.state.isLoggedIn">Login</router-link>
+      <a v-bind:hidden="!$store.state.isLoggedIn">Logout</a>
     </nav>
     <router-view/>
   </div>
@@ -30,3 +31,5 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+<script>
+</script>
