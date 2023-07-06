@@ -37,7 +37,8 @@ public class SecurityConfig {
                 .formLogin(login -> login.loginProcessingUrl("/login")
                         .successHandler(loginSuccessHandler)
                         .failureHandler(loginFailureHandler)
-                        .permitAll());
+                        .permitAll())
+                .logout(logout -> logout.logoutUrl("/logout"));
 
         return http.build();
     }

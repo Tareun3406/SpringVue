@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from "axios";
 
 Vue.use(Vuex)
 
@@ -8,6 +9,9 @@ export default new Vuex.Store({
     isLoggedIn : false
   },
   getters: {
+    getIsLoggedIn(state) {
+      return state.isLoggedIn;
+    }
   },
   mutations: {
     setLoggedIn (state, isLoggedIn) {
@@ -15,6 +19,13 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    checkSessionLogin({ commit }) {
+      axios.get('/isLoggedIn')
+          .then((response)=>{
+            console.log(response.data);
+            commit('setLoggedIn', response.data);
+          })
+    }
   },
   modules: {
   }

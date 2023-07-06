@@ -3,7 +3,7 @@
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/login" v-bind:hidden="$store.state.isLoggedIn">Login</router-link>
-      <a v-bind:hidden="!$store.state.isLoggedIn">Logout</a>
+      <a href="#" v-on:click="logout" v-bind:hidden="!$store.state.isLoggedIn">Logout</a>
     </nav>
     <router-view/>
   </div>
@@ -31,5 +31,26 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+
 <script>
+import axios from "axios";
+
+export default {
+  methods: {
+    logout(event) {
+      event.preventDefault();
+
+      axios.post('/logout')
+          .then(
+              () => this.$store.commit('setLoggedIn', false)
+      )
+          .catch(
+        error => console.log(error)
+      );
+    }
+  },
+  mounted() {
+    this.$store.dispatch('checkSessionLogin');
+  }
+}
 </script>
