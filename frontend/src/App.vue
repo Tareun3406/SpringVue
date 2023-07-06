@@ -2,7 +2,8 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link>
+      <router-link to="/login" v-bind:hidden="$store.state.isLoggedIn">Login</router-link>
+      <a v-bind:hidden="!$store.state.isLoggedIn">Logout</a>
     </nav>
     <router-view/>
   </div>
