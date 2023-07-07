@@ -9,20 +9,20 @@ export default new Vuex.Store({
     isLoggedIn : false
   },
   getters: {
-    getIsLoggedIn(state) {
+    GET_IS_LOGGED_IN(state) {
       return state.isLoggedIn;
     }
   },
   mutations: {
-    setLoggedIn (state, isLoggedIn) {
+    SET_LOGGED_IN (state, isLoggedIn) {
       state.isLoggedIn = isLoggedIn;
     }
   },
   actions: {
-    checkSessionLogin({ commit }) {
+    CHECK_SESSION_LOGIN({ commit }) {
       axios.get('/isLoggedIn')
           .then((response)=>{
-            commit('setLoggedIn', response.data);
+            commit('SET_LOGGED_IN', response.data);
           })
     }
   },

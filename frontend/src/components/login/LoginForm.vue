@@ -26,7 +26,7 @@
     }
     ,
     methods : {
-      ...mapMutations(['setLoggedIn']),
+      ...mapMutations(['SET_LOGGED_IN']),
       onSubmitTest(event)
       {
         event.preventDefault();
@@ -40,7 +40,7 @@
             "Content-Type":"multipart/form-data"
           }
         }).then( () => {
-          this.setLoggedIn(true);
+          this.SET_LOGGED_IN(true);
           router.push('/');
         }).catch( () => {
           this.isInvalidValue = true;

@@ -2,8 +2,8 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
-      <router-link to="/login" v-bind:hidden="getIsLoggedIn">Login</router-link>
-      <a href="#" v-on:click="logout" v-bind:hidden="!getIsLoggedIn">Logout</a>
+      <router-link to="/login" v-bind:hidden="GET_IS_LOGGED_IN">Login</router-link>
+      <a href="#" v-on:click="logout" v-bind:hidden="!GET_IS_LOGGED_IN">Logout</a>
 
     </nav>
     <router-view/>
@@ -39,14 +39,14 @@ import {mapActions, mapGetters, mapMutations} from "vuex";
 
 export default {
   methods: {
-    ...mapMutations(['setLoggedIn']),
-    ...mapActions(['checkSessionLogin']),
+    ...mapMutations(['SET_LOGGED_IN']),
+    ...mapActions(['CHECK_SESSION_LOGIN']),
     logout(event) {
       event.preventDefault();
 
       axios.post('/logout')
           .then(
-              () => this.setLoggedIn(false)
+              () => this.SET_LOGGED_IN(false)
       )
           .catch(
         error => console.log(error)
@@ -54,11 +54,11 @@ export default {
     }
   },
   computed : {
-    ...mapGetters(['getIsLoggedIn'])
+    ...mapGetters(['GET_IS_LOGGED_IN'])
   }
   ,
   mounted() {
-    this.checkSessionLogin();
+    this.CHECK_SESSION_LOGIN();
   }
 }
 </script>
