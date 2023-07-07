@@ -13,6 +13,7 @@
 <script>
   import axios from "axios";
   import router from "@/router";
+  import {mapMutations} from "vuex";
 
   export default {
     name: 'LoginForm',
@@ -25,6 +26,7 @@
     }
     ,
     methods : {
+      ...mapMutations(['setLoggedIn']),
       onSubmitTest(event)
       {
         event.preventDefault();
@@ -38,13 +40,13 @@
             "Content-Type":"multipart/form-data"
           }
         }).then( () => {
-          this.$store.commit('setLoggedIn', true);
+          this.setLoggedIn(true);
           router.push('/');
         }).catch( () => {
           this.isInvalidValue = true;
         });
       }
-    }
+    },
   }
 
 

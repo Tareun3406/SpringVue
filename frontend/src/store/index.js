@@ -22,7 +22,6 @@ export default new Vuex.Store({
     checkSessionLogin({ commit }) {
       axios.get('/isLoggedIn')
           .then((response)=>{
-            console.log(response.data);
             commit('setLoggedIn', response.data);
           })
     }
