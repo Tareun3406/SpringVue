@@ -3,10 +3,8 @@ package kr.tareun.practice.controller;
 import kr.tareun.practice.service.UserService;
 import kr.tareun.practice.vo.UserVO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.hibernate.annotations.Fetch;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -29,5 +27,16 @@ public class UserController {
     @GetMapping("/checkIsDuplicateUser")
     public boolean checkIsDuplicateUser(String username){
         return userService.checkIsDuplicateUser(username);
+    }
+
+    @GetMapping("/userInfo")
+    public UserVO getUserInfo(Principal principal) {
+        String username = principal.getName();
+        return userService.getUserInfoById(username);
+    }
+
+    @PatchMapping("/updateUser")
+    public void updateUser(@RequestBody UserVO userInfo) {
+        userService.updateUser(userInfo);
     }
 }

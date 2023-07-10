@@ -35,5 +35,10 @@ public class UserServiceImpl implements UserService{
         return optional.isPresent();
     }
 
+    @Override
+    public void updateUser(UserVO userInfo) {
+        userRepository.save(userInfo.toEntity());
+    }
+
 
 }

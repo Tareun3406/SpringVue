@@ -9,4 +9,6 @@ public interface UserService {
     UserVO getUserInfoById(String id);
 
     boolean checkIsDuplicateUser(String username);
+
+    void updateUser(UserVO userInfo);
 }
