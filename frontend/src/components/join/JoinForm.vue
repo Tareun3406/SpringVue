@@ -3,7 +3,7 @@
     <username-input></username-input>
     <password-input></password-input>
     <email-input></email-input>
-    <button>로그인</button>
+    <button>회원가입</button>
   </form>
 </template>
 
@@ -15,6 +15,13 @@ import {mapActions} from "vuex";
 
 export default {
   name: "JoinForm",
+  data() {
+    return {
+      joinFormStyle: {
+
+      }
+    }
+  },
   components: {
     UsernameInput,
     PasswordInput,
@@ -27,5 +34,19 @@ export default {
 </script>
 
 <style scoped>
-
+>>> .invalid-message {
+  display: block;
+  margin: 0;
+}
+>>> .isInvalid {
+  color: red;
+}
+>>> .isValid{
+  color: blue;
+}
+>>> .input-name{
+  display: inline-block;
+  width: 7rem;
+}
 </style>
+

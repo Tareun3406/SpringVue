@@ -40,9 +40,12 @@ export default {
             state.pwCheck = value;
         },
 
+
         updateEmail(state, value) {
             state.email = value;
         },
+
+
         reset(state) {
             state.username = "";
             state.password = "";
@@ -59,7 +62,7 @@ export default {
                     .then(
                         response => {
                             commit('setIsDuplicatedUsername',response.data);
-                            commit('setIsCheckedDuplicated', !response.data);
+                            commit('setIsCheckedDuplicated', true);
                         }
                     ).catch(
                     error => console.log(error)

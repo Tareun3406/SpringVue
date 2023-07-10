@@ -1,12 +1,14 @@
 <template>
   <div>
-    <span>아이디</span>
+    <span class="input-name">아이디</span>
     <input type="text" name="username" v-model="localUsername">
-    <button type="button" @click="duplicateCheck">중복확인</button>
-    <p>
-      <span v-bind:hidden="!isDuplicatedUsername">중복 아이디입니다.</span>
-      <span v-bind:hidden="isDuplicatedUsername">사용 가능한 아이디입니다.</span>
+    <button type="button" @click="duplicateCheck" style="position: absolute">중복확인</button>
+    <p class="invalid-message" v-show="isCheckedDuplicated">
+      <span class="isInvalid" v-show="isDuplicatedUsername">중복 아이디입니다.</span>
+      <span class="isValid" v-show="!isDuplicatedUsername">사용 가능한 아이디입니다.</span>
     </p>
+    <p class="invalid-message isInvalid" v-show="!isCheckedDuplicated && localUsername !== ''">중복확인 버튼을 눌러주세요</p>
+
   </div>
 </template>
 
@@ -17,11 +19,11 @@ export default {
   name: 'usernameInput',
   data() {
     return {
-      localUsername: ''
+      localUsername: '',
     }
   },
   computed: {
-    ...mapState('joinForm',["username","isDuplicatedUsername"])
+    ...mapState('joinForm',["username","isDuplicatedUsername", "isCheckedDuplicated"])
   },
   watch: {
     localUsername(newVal) {

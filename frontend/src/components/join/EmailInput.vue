@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>
-      <span>이메일</span>
+      <span class="input-name">이메일</span>
       <input type="email" name="email" v-model="localEmail">
     </p>
   </div>
@@ -28,6 +28,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
