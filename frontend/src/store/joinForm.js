@@ -42,6 +42,14 @@ export default {
 
         updateEmail(state, value) {
             state.email = value;
+        },
+        reset(state) {
+            state.username = "";
+            state.password = "";
+            state.pwCheck = "";
+            state.email = "";
+            state.isCheckedDuplicated = false;
+            state.isDuplicatedUsername = "";
         }
     },
     actions: {
@@ -59,10 +67,8 @@ export default {
             }
         },
 
-        doJoinOnSubmit({state, getters}, event) {
+        doJoinOnSubmit({state, getters, commit}, event) {
             event.preventDefault();
-            console.log("로그인 버튼 클릭!")
-            console.log
             if (getters.getIsSamePw && state.isCheckedDuplicated && !state.isDuplicatedUsername) {
                 axios.put("/joinUser",{
                     username:state.username,
@@ -73,6 +79,7 @@ export default {
                         "Content-Type" : "application/json"
                     }
                 }).then( () => {
+                    commit('reset');
                     router.push("/login");
                 }).catch(error => console.log(error))
             }

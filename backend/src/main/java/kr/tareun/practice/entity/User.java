@@ -19,9 +19,9 @@ public class User {
     @Column(length = 100)
     String username;
 
-    @Column(length = 200)
+    @Column(length = 200, nullable = false)
     String password;
 
-    @Column(length = 50)
+    @Column(length = 50, nullable = false)
     String email;
 }
