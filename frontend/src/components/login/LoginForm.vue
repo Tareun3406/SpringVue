@@ -1,9 +1,13 @@
 <template>
   <form class="login-form" v-on:submit="onSubmitTest">
-    <p>ID <input type="text" name="username" v-model="username"></p>
-    <p>PW <input type="password" name="password" v-model="password"></p>
+    <p>
+      <span class="input-name">ID</span>
+      <input type="text" name="username" v-model="username"></p>
+    <p>
+      <span class="input-name">PW</span>
+      <input type="password" name="password" v-model="password"></p>
 
-    <p v-bind:hidden="!isInvalidValue">아이디 또는 비밀번호를 확인해주세요</p>
+    <p class="isInvalid" v-show="isInvalidValue">아이디 또는 비밀번호를 확인해주세요</p>
 
     <button>로그인</button>
 
@@ -53,5 +57,18 @@
 </script>
 
 <style scoped>
-
+.invalid-message {
+  display: block;
+  margin: 0;
+}
+.isInvalid {
+  color: red;
+}
+.isValid{
+  color: blue;
+}
+.input-name{
+  display: inline-block;
+  width: 3rem;
+}
 </style>

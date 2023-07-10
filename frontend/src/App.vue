@@ -2,7 +2,10 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
-      <router-link to="/login" v-bind:hidden="GET_IS_LOGGED_IN">Login</router-link>
+      <span v-bind:hidden="GET_IS_LOGGED_IN">
+        <router-link to="/login">Login</router-link> |
+        <router-link to="/join">Join</router-link>
+      </span>
       <a href="#" v-on:click="logout" v-bind:hidden="!GET_IS_LOGGED_IN">Logout</a>
 
     </nav>
