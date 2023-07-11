@@ -17,11 +17,11 @@ public class User {
 
     @Id
     @Column(length = 100)
-    String username;
+    private String username;
 
     @Column(length = 200, nullable = false)
-    String password;
+    private String password;
 
     @Column(length = 50, nullable = false)
-    String email;
+    private String email;
 }
