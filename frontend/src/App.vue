@@ -41,6 +41,7 @@ nav a.router-link-exact-active {
 <script>
 import axios from "axios";
 import {mapActions, mapGetters, mapMutations} from "vuex";
+import router from "@/router";
 
 export default {
   methods: {
@@ -51,7 +52,10 @@ export default {
 
       axios.post('/logout')
           .then(
-              () => this.SET_LOGGED_IN(false)
+              () => {
+                this.SET_LOGGED_IN(false);
+                router.push("/");
+              }
       )
           .catch(
         error => console.log(error)
