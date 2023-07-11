@@ -24,7 +24,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("joinForm",["getIsSamePw"]),
+    ...mapGetters("myPageForm",["getIsSamePw"]),
   },
   watch: {
     localPassword(value) {
