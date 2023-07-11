@@ -6,8 +6,10 @@
         <router-link to="/login">Login</router-link> |
         <router-link to="/join">Join</router-link>
       </span>
-      <a href="#" v-on:click="logout" v-bind:hidden="!GET_IS_LOGGED_IN">Logout</a>
-
+      <span v-bind:hidden="!GET_IS_LOGGED_IN">
+        <a href="#" v-on:click="logout">Logout</a> |
+        <router-link to="/myPage">MyPage</router-link>
+      </span>
     </nav>
     <router-view/>
   </div>
