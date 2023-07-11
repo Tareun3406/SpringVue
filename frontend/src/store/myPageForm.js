@@ -35,12 +35,16 @@ export default {
     },
     actions: {
         getMyUserInfo({commit}) {
-            axios.get("/userInfo").then(
+            return axios.get("/userInfo").then(
                 response => {
                     let userinfo = response.data;
                     commit('setUserInfo',userinfo);
                 }
-            )
+            ).catch(error => {
+                if (error.response.status === 401){
+                    router.push("/");
+                }else console.log(error);
+            })
         },
         doUpdateUserOnSubmit({state, getters}, event) {
             event.preventDefault();

@@ -39,7 +39,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) =>{
   if (to.name === "myPage") {
-    store.dispatch("myPageForm/getMyUserInfo").then(()=> next())
+    store.dispatch("myPageForm/getMyUserInfo").then(()=> next());
   }else
     next();
 

@@ -27,9 +27,6 @@ export default {
   methods: {
     ...mapActions("myPageForm",["doUpdateUserOnSubmit"])
   },
-  beforeUpdate() {
-    console.log("beforeUpdate")
-  }
 }
 </script>
 

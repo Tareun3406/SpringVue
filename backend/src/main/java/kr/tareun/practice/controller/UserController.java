@@ -1,9 +1,9 @@
 package kr.tareun.practice.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import kr.tareun.practice.service.UserService;
 import kr.tareun.practice.vo.UserVO;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Fetch;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -30,9 +30,13 @@ public class UserController {
     }
 
     @GetMapping("/userInfo")
-    public UserVO getUserInfo(Principal principal) {
-        String username = principal.getName();
-        return userService.getUserInfoById(username);
+    public UserVO getUserInfo(Principal principal, HttpServletResponse response) {
+        if (principal != null) {
+            return userService.getUserInfoById(principal.getName());
+        }else {
+            response.setStatus(401);
+            return null;
+        }
     }
 
     @PatchMapping("/updateUser")

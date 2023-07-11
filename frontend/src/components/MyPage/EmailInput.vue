@@ -22,12 +22,14 @@ export default {
       this.updateEmail(value);
     }
   },
-  methods: {
-    ...mapMutations('myPageForm', ["updateEmail"]),
+  computed: {
     ...mapState('myPageForm', ["email"])
   },
+  methods: {
+    ...mapMutations('myPageForm', ["updateEmail"]),
+  },
   mounted() {
-    this.localEmail = this.email();
+    this.localEmail = this.email;
   }
 }
 </script>
