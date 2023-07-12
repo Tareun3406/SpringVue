@@ -54,7 +54,7 @@ export default {
           .then(
               () => {
                 this.SET_LOGGED_IN(false);
-                router.push("/");
+                if (router.currentRoute.path !== "/") router.push("/");
               }
       )
           .catch(

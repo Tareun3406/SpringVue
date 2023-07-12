@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void updateUser(UserVO userInfo) {
-        userRepository.save(userInfo.toEntity());
+        userRepository.save(userInfo.toEntityWithPwEncode(encoder));
     }
 
 
