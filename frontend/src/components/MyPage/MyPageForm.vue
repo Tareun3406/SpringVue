@@ -3,7 +3,7 @@
     <username-input></username-input>
     <password-input></password-input>
     <email-input></email-input>
-    <button type="submit">회원가입</button>
+    <button type="submit">회원수정</button>
   </form>
 </template>
 
