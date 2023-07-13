@@ -1,13 +1,12 @@
 package kr.tareun.practice.controller;
 
 import kr.tareun.practice.service.BoardService;
+import kr.tareun.practice.vo.BoardPostVO;
 import kr.tareun.practice.vo.BoardVO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -21,8 +20,8 @@ public class BoardController {
         return boardService.getBoardList();
     }
 
-    @PutMapping("/board")
-    public void putBoard(@RequestBody BoardVO boardVO) {
-        boardService.insertBoard(boardVO);
+    @PostMapping("/board")
+    public void postBoard(@RequestBody BoardPostVO post, Principal principal) {
+        boardService.insertBoard(new BoardVO(principal.getName(), post.getTitle(), post.getContent()));
     }
 }

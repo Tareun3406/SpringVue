@@ -13,18 +13,24 @@
       <th>{{ board.regDate }}</th>
     </tr>
     <tr>
-      <button>게시글 작성</button>
+      <button type="button" @click="onClickPostButton">게시글 작성</button>
     </tr>
   </table>
 </template>
 
 <script>
 import {mapState} from "vuex";
+import router from "@/router";
 
 export default {
   name: 'BoardListTable',
   computed: {
     ...mapState("boardList",["board_list"])
+  },
+  methods: {
+    onClickPostButton() {
+      router.push("/boardPosting");
+    }
   }
 }
 </script>

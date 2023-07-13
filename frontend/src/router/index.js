@@ -6,6 +6,7 @@ import JoinView from "@/views/JoinView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import store from "@/store";
 import BoardListView from "@/views/BoardListView.vue";
+import BoardPostingView from "@/views/BoardPostingView.vue";
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const routes = [
     path: '/boardList',
     name: 'boardList',
     component: BoardListView
+  },
+  {
+    path: '/boardPosting',
+    name: 'boardPosting',
+    component: BoardPostingView
   }
 ]
 
