@@ -49,7 +49,7 @@ export default {
         doUpdateUserOnSubmit({state, getters}, event) {
             event.preventDefault();
             if (getters.getIsSamePw && state.password !== "") {
-                axios.put("/updateUser",{
+                axios.patch("/updateUser",{
                     username:state.username,
                     password:state.password,
                     email:state.email

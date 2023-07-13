@@ -2,6 +2,7 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
+      <router-link to="/boardList">Board</router-link> |
       <span v-bind:hidden="GET_IS_LOGGED_IN">
         <router-link to="/login">Login</router-link> |
         <router-link to="/join">Join</router-link>

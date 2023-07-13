@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import axios from "axios";
 import joinForm from "@/store/joinForm";
 import myPageForm from "@/store/myPageForm";
+import boardList from "@/store/boardList";
 
 Vue.use(Vuex)
 
@@ -30,6 +31,7 @@ export default new Vuex.Store({
   },
   modules: {
     joinForm,
-    myPageForm
+    myPageForm,
+    boardList
   }
 })

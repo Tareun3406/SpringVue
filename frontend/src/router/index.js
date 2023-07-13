@@ -5,6 +5,7 @@ import LoginView from "@/views/LoginView.vue";
 import JoinView from "@/views/JoinView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import store from "@/store";
+import BoardListView from "@/views/BoardListView.vue";
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/myPage',
     name: 'myPage',
     component: MyPageView,
+  },
+  {
+    path: '/boardList',
+    name: 'boardList',
+    component: BoardListView
   }
 ]
 
@@ -38,11 +44,17 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) =>{
-  if (to.name === "myPage") {
-    store.dispatch("myPageForm/getMyUserInfo").then(()=> next());
-  }else
-    next();
 
+  switch (to.name){
+    case "myPage" :
+      store.dispatch("myPageForm/getMyUserInfo").then(()=> next());
+      break;
+    case "boardList":
+      store.dispatch("boardList/getBoardList").then(()=> next());
+      break;
+    default:
+      next();
+  }
 })
 
 export default router

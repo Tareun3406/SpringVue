@@ -31,12 +31,12 @@ public class UserController {
 
     @GetMapping("/userInfo")
     public UserVO getUserInfo(Principal principal, HttpServletResponse response) {
-        if (principal != null) {
-            return userService.getUserInfoById(principal.getName());
-        }else {
+
+        if (principal == null ) {
             response.setStatus(401);
             return null;
         }
+        return userService.getUserInfoById(principal.getName());
     }
 
     @PatchMapping("/updateUser")
