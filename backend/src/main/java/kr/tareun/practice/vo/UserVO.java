@@ -30,14 +30,7 @@ public class UserVO {
     }
 
     // DB에 전송전 email 정보 인코딩
-    public User toEntity() {
-        String encodedEmail = getEncoder().encodeToString(email.getBytes());
-        return User.builder()
-                .username(username)
-                .password(password)
-                .email(encodedEmail)
-                .build();
-    }
+
 
 
     // 회원 가입시 비밀번호 인코딩 추가, email 인코딩

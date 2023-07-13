@@ -7,7 +7,7 @@
       <th>date</th>
     </tr>
     <tr v-for="board in board_list" :key="board.id">
-      <th>{{ board.id }}</th>
+      <th>{{ board.no }}</th>
       <th>{{ board.title }}</th>
       <th>{{ board.writer }}</th>
       <th>{{ board.regDate }}</th>
@@ -25,10 +25,15 @@ import router from "@/router";
 export default {
   name: 'BoardListTable',
   computed: {
-    ...mapState("boardList",["board_list"])
+    ...mapState("boardList",["board_list"]),
+    ...mapState(["isLoggedIn"])
   },
   methods: {
     onClickPostButton() {
+      if (!this.isLoggedIn) {
+        router.push("/login");
+        return;
+      }
       router.push("/boardPosting");
     }
   }

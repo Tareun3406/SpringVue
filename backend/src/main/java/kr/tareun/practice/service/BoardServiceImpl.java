@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -16,13 +17,13 @@ public class BoardServiceImpl implements BoardService{
     private final BoardRepository boardRepository;
 
     @Override
-    public void insertBoard(BoardVO boardVO) {
-        boardRepository.save(boardVO.ToEntity());
+    public BoardVO insertBoard(BoardVO boardVO) {
+        Board saved = boardRepository.save(Board.voToEntity(boardVO));
+        return BoardVO.EntityToVo(saved);
     }
 
     @Override
     public void updateBoard() {
-
     }
 
     @Override
@@ -32,8 +33,10 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void getBoardContents() {
+    public BoardVO getBoardContents(long no) {
+        Optional<Board> optional = boardRepository.findById(no);
 
+        return optional.map(BoardVO::EntityToVo).orElse(null);
     }
 
     @Override

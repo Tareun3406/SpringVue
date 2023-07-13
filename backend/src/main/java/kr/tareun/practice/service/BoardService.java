@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface BoardService {
 
-    void insertBoard(BoardVO boardVO);
+    BoardVO insertBoard(BoardVO boardVO);
 
     void updateBoard();
 
     List<BoardVO> getBoardList();
 
-    void getBoardContents();
+    BoardVO getBoardContents(long no);
 
     void deleteBoardById();
 }

@@ -38,9 +38,14 @@ export default {
       }).then(
           ()=> router.push("/boardList")
       ).catch(
-          error => console.log(error)
+          error => {
+            if (error.response.status === 401){
+              router.push("/login");
+            }
+            console.log(error)
+          }
       )
-    }
+    },
   }
 }
 </script>

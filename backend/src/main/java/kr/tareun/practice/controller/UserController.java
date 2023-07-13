@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import kr.tareun.practice.service.UserService;
 import kr.tareun.practice.vo.UserVO;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.connector.Response;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -33,7 +34,7 @@ public class UserController {
     public UserVO getUserInfo(Principal principal, HttpServletResponse response) {
 
         if (principal == null ) {
-            response.setStatus(401);
+            response.setStatus(Response.SC_UNAUTHORIZED);
             return null;
         }
         return userService.getUserInfoById(principal.getName());

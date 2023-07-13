@@ -1,16 +1,13 @@
 package kr.tareun.practice.vo;
 
 import kr.tareun.practice.entity.Board;
-import kr.tareun.practice.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @ToString
 @Getter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardVO {
@@ -28,20 +25,12 @@ public class BoardVO {
 
     public static BoardVO EntityToVo(Board entity) {
         BoardVO boardVO = new BoardVO();
-        boardVO.no = entity.getNumber();
+        boardVO.no = entity.getNo();
         boardVO.writer = entity.getUser().getUsername();
         boardVO.title = entity.getTitle();
         boardVO.content = entity.getContent();
         boardVO.regDate = entity.getRegDate();
 
         return boardVO;
-    }
-
-    public Board ToEntity() {
-        return Board.builder()
-                .user(User.builder().username(this.writer).build())
-                .title(this.title)
-                .content(this.content)
-                .build();
     }
 }

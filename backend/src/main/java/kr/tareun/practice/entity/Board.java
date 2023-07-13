@@ -1,6 +1,7 @@
 package kr.tareun.practice.entity;
 
 import jakarta.persistence.*;
+import kr.tareun.practice.vo.BoardVO;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,7 +19,7 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long number;
+    private long no;
 
     @ManyToOne
     @JoinColumn(name = "user_username", nullable = false)
@@ -33,6 +34,14 @@ public class Board {
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime regDate;
+
+    public static Board voToEntity(BoardVO boardVO) {
+        return Board.builder()
+                .user(User.builder().username(boardVO.getWriter()).build())
+                .title(boardVO.getTitle())
+                .content(boardVO.getContent())
+                .build();
+    }
 }
 
 

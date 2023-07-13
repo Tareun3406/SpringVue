@@ -6,14 +6,21 @@ import kr.tareun.practice.entity.User;
 import kr.tareun.practice.repository.BoardRepository;
 import kr.tareun.practice.service.BoardService;
 import kr.tareun.practice.vo.BoardVO;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 
+
+@Transactional
 @SpringBootTest()
 public class BoardTest {
 
@@ -23,25 +30,35 @@ public class BoardTest {
     @Autowired
     private BoardService boardService;
 
+    @Rollback
     @Test
-    public void BoardInsertTest() {
+    @DisplayName("게시글의 주어진 내용과 저장된 값이 같아야 합니다.")
+    public void BoardPostAndRead() {
         // give
-        BoardVO boardVO = new BoardVO("test", "title", "content");
+        String writer = "test";
+        String title = "title14151g";
+        String content = "content atwq ccgaaaqq";
 
-        System.out.println("boardVO = " + boardVO);
+        BoardVO insertedVO = new BoardVO(writer,title, content);
 
         //when
-        boardService.insertBoard(boardVO);
+        BoardVO result= boardService.insertBoard(insertedVO);
 
+        System.out.println("insertedVO = " + insertedVO);
+        System.out.println("result = " + result);
 
         //result
-
+        assertThat(insertedVO.getWriter()).isEqualTo(result.getWriter());
+        assertThat(insertedVO.getTitle()).isEqualTo(result.getTitle());
+        assertThat(insertedVO.getContent()).isEqualTo(result.getContent());
     }
 
     @Test
     public void getBoardById() {
-        Optional<Board> optional = boardRepository.findById(1L);
-        System.out.println("optional = " + optional);
+        //give get board
+        BoardVO boardContents = boardService.getBoardContents(2L);
+
+        System.out.println("boardContents = " + boardContents);
     }
 
     @Test
