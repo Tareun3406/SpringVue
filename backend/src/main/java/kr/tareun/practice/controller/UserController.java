@@ -19,7 +19,7 @@ public class UserController {
         return principal != null;
     }
 
-    @PutMapping("/joinUser")
+    @PostMapping("/joinUser")
     public void joinUser(@RequestBody UserVO joinUserInfo) {
         userService.joinUser(joinUserInfo);
     }

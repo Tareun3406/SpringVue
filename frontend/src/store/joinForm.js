@@ -73,7 +73,7 @@ export default {
         doJoinOnSubmit({state, getters, commit}, event) {
             event.preventDefault();
             if (getters.getIsSamePw && state.isCheckedDuplicated && !state.isDuplicatedUsername) {
-                axios.put("/joinUser",{
+                axios.post("/joinUser",{
                     username:state.username,
                     password:state.password,
                     email:state.email

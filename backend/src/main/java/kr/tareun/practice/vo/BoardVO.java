@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardVO {
-    private long id;
+    private long no;
     private String writer;
     private String title;
     private String content;
@@ -28,7 +28,7 @@ public class BoardVO {
 
     public static BoardVO EntityToVo(Board entity) {
         BoardVO boardVO = new BoardVO();
-        boardVO.id = entity.getNumber();
+        boardVO.no = entity.getNumber();
         boardVO.writer = entity.getUser().getUsername();
         boardVO.title = entity.getTitle();
         boardVO.content = entity.getContent();
