@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -33,10 +34,10 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public BoardVO getBoardContents(long no) {
+    public BoardVO getBoardContents(long no) throws NoSuchElementException{
         Optional<Board> optional = boardRepository.findById(no);
 
-        return optional.map(BoardVO::EntityToVo).orElse(null);
+        return optional.map(BoardVO::EntityToVo).orElseThrow(NoSuchElementException::new);
     }
 
     @Override

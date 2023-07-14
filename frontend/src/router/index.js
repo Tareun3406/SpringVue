@@ -7,6 +7,7 @@ import MyPageView from "@/views/MyPageView.vue";
 import store from "@/store";
 import BoardListView from "@/views/BoardListView.vue";
 import BoardPostingView from "@/views/BoardPostingView.vue";
+import BoardContentView from "@/views/BoardContentView.vue";
 
 Vue.use(VueRouter)
 
@@ -40,6 +41,11 @@ const routes = [
     path: '/boardPosting',
     name: 'boardPosting',
     component: BoardPostingView
+  },
+  {
+    path: '/boardContent/:no',
+    name: 'boardContent',
+    component: BoardContentView
   }
 ]
 
@@ -53,10 +59,18 @@ router.beforeEach((to, from, next) =>{
 
   switch (to.name){
     case "myPage" :
-      store.dispatch("myPageForm/getMyUserInfo").then(()=> next());
+      store.dispatch("myPageForm/getMyUserInfo").then(() => next());
       break;
     case "boardList":
-      store.dispatch("boardList/getBoardList").then(()=> next());
+      store.dispatch("boardList/getBoardList").then(() => next());
+      break;
+    case "boardContent":
+      store.dispatch("boardContent/getContents", to.params.no)
+          .then(() => next())
+          .catch((error) => {
+            if (error.response.status === 404) {
+              router.push("/boardList");
+            }});
       break;
     default:
       next();

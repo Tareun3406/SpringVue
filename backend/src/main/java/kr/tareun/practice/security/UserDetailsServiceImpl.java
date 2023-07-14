@@ -22,12 +22,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Optional<User> optional = userRepository.findById(username);
 
-        User userInfo;
-        if (optional.isPresent()){
-            userInfo = optional.get();
-        }else {
-            throw new UsernameNotFoundException("회원 정보를 찾을 수 없습니다.");
-        }
+        User userInfo = optional.orElseThrow(() -> new UsernameNotFoundException("회원 정보를 찾을 수 없습니다."));
+
+//        위와 같음
+//        User userInfo;
+//        if (optional.isPresent()){
+//            userInfo = optional.get();
+//        }else {
+//            throw new UsernameNotFoundException("회원 정보를 찾을 수 없습니다.");
+//        }
+
+
         // 로그인 테스트용
         return new UserDetailsImpl(userInfo);
     }

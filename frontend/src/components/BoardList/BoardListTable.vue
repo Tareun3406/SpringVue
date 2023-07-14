@@ -6,7 +6,7 @@
       <th>writer</th>
       <th>date</th>
     </tr>
-    <tr v-for="board in board_list" :key="board.id">
+    <tr v-for="board in board_list" :key="board.id" @click="onClickBoardTitle(board.no)">
       <th>{{ board.no }}</th>
       <th>{{ board.title }}</th>
       <th>{{ board.writer }}</th>
@@ -35,6 +35,9 @@ export default {
         return;
       }
       router.push("/boardPosting");
+    },
+    onClickBoardTitle(no) {
+      router.push("/boardContent/" + no);
     }
   }
 }

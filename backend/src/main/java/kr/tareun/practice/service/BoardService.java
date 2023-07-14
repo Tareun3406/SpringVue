@@ -3,6 +3,7 @@ package kr.tareun.practice.service;
 import kr.tareun.practice.vo.BoardVO;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public interface BoardService {
 
@@ -12,7 +13,7 @@ public interface BoardService {
 
     List<BoardVO> getBoardList();
 
-    BoardVO getBoardContents(long no);
+    BoardVO getBoardContents(long no) throws NoSuchElementException;
 
     void deleteBoardById();
 }

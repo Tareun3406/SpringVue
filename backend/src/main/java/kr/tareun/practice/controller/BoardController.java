@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @RestController
@@ -33,7 +34,12 @@ public class BoardController {
     }
 
     @GetMapping("/board")
-    public BoardVO getBoard(@RequestParam long no) {
-        return boardService.getBoardContents(no);
+    public BoardVO getBoard(long no, HttpServletResponse response) {
+        try {
+            return boardService.getBoardContents(no);
+        }catch (NoSuchElementException e){
+            response.setStatus(Response.SC_NOT_FOUND);
+            return null;
+        }
     }
 }

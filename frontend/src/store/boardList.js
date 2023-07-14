@@ -13,9 +13,8 @@ export default {
     actions: {
         getBoardList({commit}) {
             return axios.get("/boardList").then(response => {
-                console.log(response.data);
                 commit("SET_BOARD_LIST", response.data);
-            }).catch(error => console.log(error));
+            }).catch();
         }
     }
 
