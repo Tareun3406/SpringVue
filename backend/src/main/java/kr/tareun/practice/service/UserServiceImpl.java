@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void joinUser(UserVO joinUserInfo) {
-        userRepository.save(joinUserInfo.toEntityWithPwEncode(encoder));
+        userRepository.save(User.toEntityWithPwEncode(joinUserInfo, encoder));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void updateUser(UserVO userInfo) {
-        userRepository.save(userInfo.toEntityWithPwEncode(encoder));
+        userRepository.save(User.toEntityWithPwEncode(userInfo, encoder));
     }
 
 

@@ -29,21 +29,6 @@ public class UserVO {
         return vo;
     }
 
-    // DB에 전송전 email 정보 인코딩
-
-
-
-    // 회원 가입시 비밀번호 인코딩 추가, email 인코딩
-    public User toEntityWithPwEncode(PasswordEncoder encoder) {
-        String encodedEmail = getEncoder().encodeToString(email.getBytes());
-        return User.builder()
-                .username(username)
-                .password(encoder.encode(password))
-                .email(encodedEmail)
-                .build();
-    }
-
-
     // equals, hashCode 에 비밀번호는 포함 되지 않음
     @Override
     public boolean equals(Object o) {
