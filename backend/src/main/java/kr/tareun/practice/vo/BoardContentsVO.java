@@ -22,7 +22,7 @@ public class BoardContentsVO {
     private String content;
     private LocalDateTime regDate;
 
-    private List<BoardCommentVO> commentList;
+    private List<BoardCommentVO> comments;
 
     public static BoardContentsVO entityToVO(Board entity) {
         BoardContentsVO vo = new BoardContentsVO();
@@ -32,7 +32,7 @@ public class BoardContentsVO {
         vo.content = entity.getContent();
         vo.regDate = entity.getRegDate();
 
-        vo.commentList = entity.getCommentList().stream().map(BoardCommentVO::entityToVO).collect(Collectors.toList());
+        vo.comments = entity.getComments().stream().map(BoardCommentVO::entityToVO).collect(Collectors.toList());
 
         System.out.println("vo = " + vo);
         return vo;

@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
-    @Query("SELECT b FROM Board b LEFT JOIN FETCH b.commentList c WHERE c.depth = 0 AND b.no = :no")
+    @Query("SELECT b FROM Board b LEFT JOIN FETCH b.comments c WHERE c.depth = 0 AND b.no = :no")
     Optional<Board> findBoardWithFilteredComments(@Param("no") Long no);
 }
