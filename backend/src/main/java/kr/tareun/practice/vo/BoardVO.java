@@ -23,7 +23,7 @@ public class BoardVO {
         this.content = content;
     }
 
-    public static BoardVO EntityToVo(Board entity) {
+    public static BoardVO entityToVO(Board entity) {
         BoardVO boardVO = new BoardVO();
         boardVO.no = entity.getNo();
         boardVO.writer = entity.getUser().getUsername();

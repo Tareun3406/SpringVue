@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Builder
@@ -35,6 +36,9 @@ public class Board {
     @Column(nullable = false, updatable = false)
     private LocalDateTime regDate;
 
+    @OneToMany(mappedBy = "parentBoard", fetch = FetchType.EAGER)
+    private List<BoardComment> commentList;
+
     public static Board voToEntity(BoardVO boardVO) {
         return Board.builder()
                 .user(User.builder().username(boardVO.getWriter()).build())
@@ -42,6 +46,7 @@ public class Board {
                 .content(boardVO.getContent())
                 .build();
     }
+
 }
 
 

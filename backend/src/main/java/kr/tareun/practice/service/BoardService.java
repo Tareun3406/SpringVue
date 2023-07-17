@@ -1,5 +1,7 @@
 package kr.tareun.practice.service;
 
+import kr.tareun.practice.vo.BoardCommentVO;
+import kr.tareun.practice.vo.BoardContentsVO;
 import kr.tareun.practice.vo.BoardVO;
 
 import java.util.List;
@@ -13,7 +15,9 @@ public interface BoardService {
 
     List<BoardVO> getBoardList();
 
-    BoardVO getBoardContents(long no) throws NoSuchElementException;
+    BoardContentsVO getBoardContents(long no) throws NoSuchElementException;
 
     void deleteBoardById();
+
+    BoardCommentVO insertComment(BoardCommentVO commentVO);
 }

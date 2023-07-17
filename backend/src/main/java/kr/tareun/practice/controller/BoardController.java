@@ -2,6 +2,7 @@ package kr.tareun.practice.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import kr.tareun.practice.service.BoardService;
+import kr.tareun.practice.vo.BoardContentsVO;
 import kr.tareun.practice.vo.BoardPostVO;
 import kr.tareun.practice.vo.BoardVO;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,8 @@ public class BoardController {
     }
 
     @GetMapping("/board")
-    public BoardVO getBoard(long no, HttpServletResponse response) {
+    public BoardContentsVO getBoard(long no, HttpServletResponse response) {
+        // try - catch 가 좋은 방법인가?
         try {
             return boardService.getBoardContents(no);
         }catch (NoSuchElementException e){

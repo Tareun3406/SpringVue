@@ -1,7 +1,10 @@
 package kr.tareun.practice.service;
 
 import kr.tareun.practice.entity.Board;
+import kr.tareun.practice.repository.BoardCommentRepository;
 import kr.tareun.practice.repository.BoardRepository;
+import kr.tareun.practice.vo.BoardCommentVO;
+import kr.tareun.practice.vo.BoardContentsVO;
 import kr.tareun.practice.vo.BoardVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,11 +19,12 @@ import java.util.stream.Collectors;
 public class BoardServiceImpl implements BoardService{
 
     private final BoardRepository boardRepository;
+    private final BoardCommentRepository boardCommentRepository;
 
     @Override
     public BoardVO insertBoard(BoardVO boardVO) {
         Board saved = boardRepository.save(Board.voToEntity(boardVO));
-        return BoardVO.EntityToVo(saved);
+        return BoardVO.entityToVO(saved);
     }
 
     @Override
@@ -30,18 +34,22 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public List<BoardVO> getBoardList() {
         List<Board> all = boardRepository.findAll();
-        return all.stream().map(BoardVO::EntityToVo).collect(Collectors.toList());
+        return all.stream().map(BoardVO::entityToVO).collect(Collectors.toList());
     }
 
     @Override
-    public BoardVO getBoardContents(long no) throws NoSuchElementException{
-        Optional<Board> optional = boardRepository.findById(no);
-
-        return optional.map(BoardVO::EntityToVo).orElseThrow(NoSuchElementException::new);
+    public BoardContentsVO getBoardContents(long no) throws NoSuchElementException{
+        Optional<Board> optional = boardRepository.findBoardWithFilteredComments(no);
+        return optional.map(BoardContentsVO::entityToVO).orElseThrow(NoSuchElementException::new);
     }
 
     @Override
     public void deleteBoardById() {
+    }
 
+    @Override
+    public BoardCommentVO insertComment(BoardCommentVO commentVO) {
+//        boardCommentRepository.save();
+        return null;
     }
 }
