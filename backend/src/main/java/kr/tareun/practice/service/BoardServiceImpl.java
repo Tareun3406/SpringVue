@@ -41,6 +41,7 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public BoardContentsVO getBoardContents(long no) throws NoSuchElementException{
         Optional<Board> optional = boardRepository.findBoardWithFilteredComments(no);
+//        Optional<Board> optional = boardRepository.findById(no);
         return optional.map(BoardContentsVO::entityToVO).orElseThrow(NoSuchElementException::new);
     }
 

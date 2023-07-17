@@ -52,7 +52,7 @@ public class BoardController {
     }
 
     @PostMapping("/boardComment")
-    public ResponseEntity<String> postBoardComment(BoardCommentVO comment, Principal principal) {
+    public ResponseEntity<String> postBoardComment(@RequestBody BoardCommentVO comment, Principal principal) {
 
         if (principal == null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");

@@ -34,7 +34,7 @@ public class BoardComment {
     @JoinColumn(name = "comment_no")
     private BoardComment parentComment;
 
-    @OneToMany(mappedBy = "parentComment")
+    @OneToMany(mappedBy = "parentComment", fetch = FetchType.EAGER)
     private List<BoardComment> childComments;
 
     @ManyToOne
