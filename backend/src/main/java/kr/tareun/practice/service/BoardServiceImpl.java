@@ -1,6 +1,7 @@
 package kr.tareun.practice.service;
 
 import kr.tareun.practice.entity.Board;
+import kr.tareun.practice.entity.BoardComment;
 import kr.tareun.practice.repository.BoardCommentRepository;
 import kr.tareun.practice.repository.BoardRepository;
 import kr.tareun.practice.vo.BoardCommentVO;
@@ -49,7 +50,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardCommentVO insertComment(BoardCommentVO commentVO) {
-//        boardCommentRepository.save();
-        return null;
+        BoardComment saved = boardCommentRepository.save(BoardComment.voToEntity(commentVO));
+        return BoardCommentVO.entityToVO(saved);
     }
 }
