@@ -1,16 +1,16 @@
 <template>
   <li>
-    <table>
+    <table @click="onClickedComment">
       <tr>
         <td>{{ comment.no }}</td>
         <td>{{ comment.writer }}</td>
         <td>{{ comment.regDate }}</td>
       </tr>
       <tr>
-        <td><input type="radio" name="test"></td>
-        <td colspan="2">{{ comment.comment }}</td>
+<!--        <td><input type="radio" name="test" :value="comment.no"></td>-->
+        <td colspan="3">{{ comment.comment }}</td>
       </tr>
-      <tr>
+      <tr v-show="selectedCommentNo === comment.no">
         <td colspan="3">
           <form @submit="onCommentSubmit">
             <textarea v-model="commentInput"></textarea>
@@ -29,19 +29,21 @@
 
 import axios from "axios";
 import router from "@/router";
+import {mapMutations, mapState} from "vuex";
 
 export default {
   name: "BoardComment",
   props: ["comment"],
   data() {
     return {
-      onClicked : false,
       commentInput: ""
     }
   },
   methods: {
-    onChangeClicked(event) {
-      this.onClicked = event.check;
+    ...mapMutations("boardContent",["setSelectedCommentNo"]),
+
+    onClickedComment() {
+      this.setSelectedCommentNo(this.comment.no);
     },
     onCommentSubmit(event){
       event.preventDefault();
@@ -60,6 +62,9 @@ export default {
       })
 
     }
+  },
+  computed: {
+    ...mapState("boardContent",["selectedCommentNo"])
   }
 }
 </script>
