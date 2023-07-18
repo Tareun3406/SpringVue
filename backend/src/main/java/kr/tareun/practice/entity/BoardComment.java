@@ -27,9 +27,6 @@ public class BoardComment {
     @JoinColumn(name = "board_no", nullable = false)
     private Board parentBoard;
 
-    @ColumnDefault("0")
-    private int depth;
-
     @ManyToOne
     @JoinColumn(name = "comment_no")
     private BoardComment parentComment;
@@ -52,7 +49,6 @@ public class BoardComment {
 
         BoardCommentBuilder builder = BoardComment.builder()
                 .parentBoard(Board.builder().no(vo.getParentBoardNo()).build())
-                .depth(vo.getDepth())
                 .user(User.builder().username(vo.getWriter()).build())
                 .comment(vo.getComment());
 

@@ -20,7 +20,6 @@ public class BoardCommentVO {
     private long no;
     private long parentBoardNo;
     private Long parentCommentNo;
-    private int depth;
 
     private String writer;
     private String comment;
@@ -29,10 +28,9 @@ public class BoardCommentVO {
 
     private List<BoardCommentVO> childComments;
 
-    public BoardCommentVO(long parentBoardNo, Long parentCommentNo, int depth, String writer, String comment) {
+    public BoardCommentVO(long parentBoardNo, Long parentCommentNo, String writer, String comment) {
         this.parentBoardNo = parentBoardNo;
         this.parentCommentNo = parentCommentNo;
-        this.depth = depth;
         this.writer = writer;
         this.comment = comment;
     }
@@ -50,7 +48,6 @@ public class BoardCommentVO {
         vo.parentBoardNo = entity.getParentBoard().getNo();
         vo.parentCommentNo = (entity.getParentComment() == null)
                 ? null : entity.getParentComment().getNo();
-        vo.depth = entity.getDepth();
         vo.writer = entity.getUser().getUsername();
         vo.comment = entity.getComment();
         vo.regDate = entity.getRegDate();

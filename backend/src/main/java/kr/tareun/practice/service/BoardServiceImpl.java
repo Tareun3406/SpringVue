@@ -56,17 +56,17 @@ public class BoardServiceImpl implements BoardService{
         return BoardCommentVO.entityToVO(saved);
     }
 
-    @Override
-    public List<BoardCommentVO> getCommentListByBoardNo(Long boardNo) {
-
-        List<BoardComment> comments = boardCommentRepository.findAllByParentBoardNo(boardNo);
-
-        List<BoardComment> filteredList = new LinkedList<BoardComment>();
-        for(BoardComment comment : comments) {
-            if (comment.getDepth() == 0){
-                filteredList.add(comment);
-            }
-        }
-        return filteredList.stream().map(BoardCommentVO::entityToVO).toList();
-    }
+//    @Override
+//    public List<BoardCommentVO> getCommentListByBoardNo(Long boardNo) {
+//
+//        List<BoardComment> comments = boardCommentRepository.findAllByParentBoardNo(boardNo);
+//
+//        List<BoardComment> filteredList = new LinkedList<BoardComment>();
+//        for(BoardComment comment : comments) {
+//            if (comment.getDepth() == 0){
+//                filteredList.add(comment);
+//            }
+//        }
+//        return filteredList.stream().map(BoardCommentVO::entityToVO).toList();
+//    }
 }

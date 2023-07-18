@@ -51,7 +51,6 @@ export default {
       axios.post("/boardComment", {
         "parentBoardNo": this.comment.parentBoardNo,
         "parentCommentNo": this.comment.no,
-        "depth": this.comment.depth+1,
         "comment": this.commentInput
       }, {
         headers: { "Content-Type" : "application/json" }

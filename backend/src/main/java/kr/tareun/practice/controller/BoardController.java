@@ -66,7 +66,7 @@ public class BoardController {
 
         boardService.insertComment(
                 new BoardCommentVO(comment.getParentBoardNo(),
-                        comment.getParentCommentNo(), comment.getDepth(),
+                        comment.getParentCommentNo(),
                         principal.getName(), comment.getComment())
         );
         return ResponseEntity.status(HttpStatus.OK).body("댓글이 등록 되었습니다.");

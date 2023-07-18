@@ -75,7 +75,6 @@ public class BoardTest {
                 .user(User.builder().username("test").build())
                 .parentBoard(Board.builder().no(1L).build())
                 .parentComment(BoardComment.builder().no(7L).build())
-                .depth(1)
                 .comment("afwwhwhwheeee")
                 .build();
 

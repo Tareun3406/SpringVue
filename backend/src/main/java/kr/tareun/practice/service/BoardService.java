@@ -21,5 +21,5 @@ public interface BoardService {
 
     BoardCommentVO insertComment(BoardCommentVO commentVO);
 
-    List<BoardCommentVO> getCommentListByBoardNo(Long boardNo);
+//    List<BoardCommentVO> getCommentListByBoardNo(Long boardNo);
 }
