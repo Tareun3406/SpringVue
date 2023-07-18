@@ -20,4 +20,6 @@ public interface BoardService {
     void deleteBoardById();
 
     BoardCommentVO insertComment(BoardCommentVO commentVO);
+
+    List<BoardCommentVO> getCommentListByBoardNo(Long boardNo);
 }

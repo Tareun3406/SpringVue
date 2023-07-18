@@ -34,7 +34,7 @@ public class BoardComment {
     @JoinColumn(name = "comment_no")
     private BoardComment parentComment;
 
-    @OneToMany(mappedBy = "parentComment", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "parentComment")
     private List<BoardComment> childComments;
 
     @ManyToOne
@@ -49,12 +49,17 @@ public class BoardComment {
     private LocalDateTime regDate;
 
     public static BoardComment voToEntity(BoardCommentVO vo) {
-        return BoardComment.builder()
+
+        BoardCommentBuilder builder = BoardComment.builder()
                 .parentBoard(Board.builder().no(vo.getParentBoardNo()).build())
                 .depth(vo.getDepth())
-                .parentComment(BoardComment.builder().no(vo.getParentCommentNo()).build())
                 .user(User.builder().username(vo.getWriter()).build())
-                .comment(vo.getComment())
-                .build();
+                .comment(vo.getComment());
+
+        if (vo.getParentCommentNo() != null) {
+            builder.parentComment(BoardComment.builder().no(vo.getParentCommentNo()).build());
+        }
+
+        return builder.build();
     }
 }

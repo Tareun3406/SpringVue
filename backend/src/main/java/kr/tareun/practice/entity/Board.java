@@ -36,7 +36,7 @@ public class Board {
     @Column(nullable = false, updatable = false)
     private LocalDateTime regDate;
 
-    @OneToMany(mappedBy = "parentBoard", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "parentBoard")
     private List<BoardComment> comments;
 
     public static Board voToEntity(BoardVO boardVO) {

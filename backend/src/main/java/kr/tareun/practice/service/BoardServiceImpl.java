@@ -10,6 +10,7 @@ import kr.tareun.practice.vo.BoardVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -41,7 +42,7 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public BoardContentsVO getBoardContents(long no) throws NoSuchElementException{
         Optional<Board> optional = boardRepository.findBoardWithFilteredComments(no);
-//        Optional<Board> optional = boardRepository.findById(no);
+
         return optional.map(BoardContentsVO::entityToVO).orElseThrow(NoSuchElementException::new);
     }
 
@@ -53,5 +54,19 @@ public class BoardServiceImpl implements BoardService{
     public BoardCommentVO insertComment(BoardCommentVO commentVO) {
         BoardComment saved = boardCommentRepository.save(BoardComment.voToEntity(commentVO));
         return BoardCommentVO.entityToVO(saved);
+    }
+
+    @Override
+    public List<BoardCommentVO> getCommentListByBoardNo(Long boardNo) {
+
+        List<BoardComment> comments = boardCommentRepository.findAllByParentBoardNo(boardNo);
+
+        List<BoardComment> filteredList = new LinkedList<BoardComment>();
+        for(BoardComment comment : comments) {
+            if (comment.getDepth() == 0){
+                filteredList.add(comment);
+            }
+        }
+        return filteredList.stream().map(BoardCommentVO::entityToVO).toList();
     }
 }

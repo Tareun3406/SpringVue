@@ -33,8 +33,6 @@ public class BoardContentsVO {
         vo.regDate = entity.getRegDate();
 
         vo.comments = entity.getComments().stream().map(BoardCommentVO::entityToVO).collect(Collectors.toList());
-
-        System.out.println("vo = " + vo);
         return vo;
     }
 }

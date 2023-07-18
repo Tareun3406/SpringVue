@@ -43,6 +43,7 @@ public class BoardCommentVO {
         this.comment = comment;
     }
 
+
     public static BoardCommentVO entityToVO(BoardComment entity) {
         BoardCommentVO vo = new BoardCommentVO();
         vo.no = entity.getNo();
@@ -54,8 +55,10 @@ public class BoardCommentVO {
         vo.comment = entity.getComment();
         vo.regDate = entity.getRegDate();
 
-        vo.childComments = entity.getChildComments().stream()
-                .map(BoardCommentVO::entityToVO).collect(Collectors.toList());
+        if (entity.getChildComments() != null){
+            vo.childComments = entity.getChildComments().stream()
+                    .map(BoardCommentVO::entityToVO).collect(Collectors.toList());
+        }
 
         return vo;
     }

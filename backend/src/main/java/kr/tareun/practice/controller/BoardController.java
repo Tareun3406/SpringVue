@@ -54,6 +54,7 @@ public class BoardController {
     @PostMapping("/boardComment")
     public ResponseEntity<String> postBoardComment(@RequestBody BoardCommentVO comment, Principal principal) {
 
+        System.out.println("comment = " + comment);
         if (principal == null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }else if (comment.getParentBoardNo() == 0) {
@@ -64,7 +65,9 @@ public class BoardController {
 
 
         boardService.insertComment(
-                new BoardCommentVO(comment.getParentBoardNo(), principal.getName(), comment.getComment())
+                new BoardCommentVO(comment.getParentBoardNo(),
+                        comment.getParentCommentNo(), comment.getDepth(),
+                        principal.getName(), comment.getComment())
         );
         return ResponseEntity.status(HttpStatus.OK).body("댓글이 등록 되었습니다.");
     }
