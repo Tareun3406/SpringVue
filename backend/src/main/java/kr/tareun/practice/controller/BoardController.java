@@ -2,10 +2,7 @@ package kr.tareun.practice.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
 import kr.tareun.practice.service.BoardService;
-import kr.tareun.practice.vo.BoardCommentVO;
-import kr.tareun.practice.vo.BoardContentsVO;
-import kr.tareun.practice.vo.BoardPostVO;
-import kr.tareun.practice.vo.BoardVO;
+import kr.tareun.practice.vo.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
@@ -52,7 +49,7 @@ public class BoardController {
     }
 
     @PostMapping("/boardComment")
-    public ResponseEntity<String> postBoardComment(@RequestBody BoardCommentVO comment, Principal principal) {
+    public ResponseEntity<String> postBoardComment(@RequestBody BoardCommentPostVO comment, Principal principal) {
 
         System.out.println("comment = " + comment);
         if (principal == null){
@@ -65,9 +62,7 @@ public class BoardController {
 
 
         boardService.insertComment(
-                new BoardCommentVO(comment.getParentBoardNo(),
-                        comment.getParentCommentNo(),
-                        principal.getName(), comment.getComment())
+                new BoardCommentVO(comment, principal.getName())
         );
         return ResponseEntity.status(HttpStatus.OK).body("댓글이 등록 되었습니다.");
     }

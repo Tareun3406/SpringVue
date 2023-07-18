@@ -28,17 +28,14 @@ public class BoardCommentVO {
 
     private List<BoardCommentVO> childComments;
 
-    public BoardCommentVO(long parentBoardNo, Long parentCommentNo, String writer, String comment) {
-        this.parentBoardNo = parentBoardNo;
-        this.parentCommentNo = parentCommentNo;
-        this.writer = writer;
-        this.comment = comment;
-    }
 
-    public BoardCommentVO(long parentBoardNo, String writer, String comment) {
-        this.parentBoardNo = parentBoardNo;
+    public BoardCommentVO(BoardCommentPostVO postVO, String writer) {
+        this.parentBoardNo = postVO.getParentBoardNo();
+        this.parentCommentNo =
+                (postVO.getParentCommentNo() == null || postVO.getParentCommentNo() == 0)
+                        ? null : postVO.getParentCommentNo();
+        this.comment = postVO.getComment();
         this.writer = writer;
-        this.comment = comment;
     }
 
 
