@@ -16,7 +16,7 @@ import {mapState} from "vuex";
 export default {
   name: "BoardContent",
   computed: {
-    ...mapState("boardContent", ["no", "writer", "title", "content", "date"]),
+    ...mapState("boardContent", ["no", "writer", "title", "content", "date", "comments"]),
   }
 }
 </script>

@@ -8,6 +8,7 @@ export default {
         title: "",
         content: "",
         date : "",
+        comments : []
     },
     mutations: {
       setStateForResponse(state, responseData) {
@@ -16,6 +17,7 @@ export default {
           state.title = responseData.title;
           state.content = responseData.content;
           state.date = responseData.regDate;
+          state.comments = responseData.comments;
       }
     },
     actions: {
@@ -23,6 +25,7 @@ export default {
             return axios.get("/board?no=" + no)
                 .then( response => {
                     commit("setStateForResponse", response.data);
+                    // console.log(response.data);
                 })
                 .catch()
         }
