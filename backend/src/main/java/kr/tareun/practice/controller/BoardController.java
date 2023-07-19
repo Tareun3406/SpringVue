@@ -54,7 +54,7 @@ public class BoardController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         } else if (comment.getParentBoardNo() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("parentBoardNo는 0 또는 null 이 될 수 없습니다.");
-        } else if (comment.getComment() == null) {
+        } else if (comment.getComment() == null || comment.getComment().equals("")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("댓글 내용은 필수입니다.");
         }
 

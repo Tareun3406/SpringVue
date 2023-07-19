@@ -41,9 +41,27 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardContentsVO getBoardContents(long no) throws NoSuchElementException{
-        Optional<Board> optional = boardRepository.findBoardWithFilteredComments(no);
+//        Optional<Board> optional = boardRepository.findBoardWithFilteredComments(no);
+//        return optional.map(BoardContentsVO::entityToVO).orElseThrow(NoSuchElementException::new);
 
-        return optional.map(BoardContentsVO::entityToVO).orElseThrow(NoSuchElementException::new);
+        Optional<Board> optional = boardRepository.findById(no);
+        optional.orElseThrow(NoSuchElementException :: new);
+
+        Board board = optional.get();
+        List<BoardComment> comments = board.getComments();
+
+        List<BoardCommentVO> filteredCommentsVO = comments.stream()
+                .filter(comment -> comment.getParentComment() == null)
+                .map(BoardCommentVO::entityToVO).toList();
+
+        return new BoardContentsVO(
+                board.getNo(),
+                board.getUser().getUsername(),
+                board.getTitle(),
+                board.getContent(),
+                board.getRegDate(),
+                filteredCommentsVO
+        );
     }
 
     @Override
