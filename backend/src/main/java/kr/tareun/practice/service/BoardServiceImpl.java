@@ -10,7 +10,6 @@ import kr.tareun.practice.vo.BoardVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -41,15 +40,18 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardContentsVO getBoardContents(long no) throws NoSuchElementException{
+//        DB 에서 필터링된 값 가져오기
 //        Optional<Board> optional = boardRepository.findBoardWithFilteredComments(no);
 //        return optional.map(BoardContentsVO::entityToVO).orElseThrow(NoSuchElementException::new);
 
+
+//         DB 에서 값을 가져온뒤 필터링
         Optional<Board> optional = boardRepository.findById(no);
         optional.orElseThrow(NoSuchElementException :: new);
 
+        // 댓글 트리구조에서 최상단만 필터링
         Board board = optional.get();
         List<BoardComment> comments = board.getComments();
-
         List<BoardCommentVO> filteredCommentsVO = comments.stream()
                 .filter(comment -> comment.getParentComment() == null)
                 .map(BoardCommentVO::entityToVO).toList();
@@ -73,18 +75,4 @@ public class BoardServiceImpl implements BoardService{
         BoardComment saved = boardCommentRepository.save(BoardComment.voToEntity(commentVO));
         return BoardCommentVO.entityToVO(saved);
     }
-
-//    @Override
-//    public List<BoardCommentVO> getCommentListByBoardNo(Long boardNo) {
-//
-//        List<BoardComment> comments = boardCommentRepository.findAllByParentBoardNo(boardNo);
-//
-//        List<BoardComment> filteredList = new LinkedList<BoardComment>();
-//        for(BoardComment comment : comments) {
-//            if (comment.getDepth() == 0){
-//                filteredList.add(comment);
-//            }
-//        }
-//        return filteredList.stream().map(BoardCommentVO::entityToVO).toList();
-//    }
 }

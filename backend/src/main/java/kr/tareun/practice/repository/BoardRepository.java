@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    @EntityGraph(attributePaths = {"comments"})
-    @Query("SELECT b FROM Board b LEFT JOIN FETCH b.comments c WHERE c.parentComment = null AND b.no = :no")
-    Optional<Board> findBoardWithFilteredComments(@Param("no") Long no);
+//    @EntityGraph(attributePaths = {"comments"})
+//    @Query("SELECT b FROM Board b LEFT JOIN FETCH b.comments c WHERE c.parentComment = null AND b.no = :no")
+//    Optional<Board> findBoardWithFilteredComments(@Param("no") Long no);
 }
