@@ -29,7 +29,7 @@ public class BoardController {
 
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-        } else if (post.getTitle() == null || post.getContent() == null) { // not null 컬럼 확인, try - catch ?
+        } else if (post.getTitle() == null || post.getContent() == null) {  // not null 컬럼 체크
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("제목과 내용을 모두 입력해야 합니다.");
         }
 
@@ -39,10 +39,9 @@ public class BoardController {
 
     @GetMapping("/board")
     public BoardContentsVO getBoard(long no, HttpServletResponse response) {
-        // try - catch 가 좋은 방법인가?
-        try {
+        try {   // try-catch 조회 결과가 없을경우 예외처리
             return boardService.getBoardContents(no);
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             response.setStatus(Response.SC_NOT_FOUND);
             return null;
         }
@@ -51,10 +50,9 @@ public class BoardController {
     @PostMapping("/boardComment")
     public ResponseEntity<String> postBoardComment(@RequestBody BoardCommentPostVO comment, Principal principal) {
 
-        System.out.println("comment = " + comment);
-        if (principal == null){
+        if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-        }else if (comment.getParentBoardNo() == 0) {
+        } else if (comment.getParentBoardNo() == 0) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("parentBoardNo는 0 또는 null 이 될 수 없습니다.");
         } else if (comment.getComment() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("댓글 내용은 필수입니다.");

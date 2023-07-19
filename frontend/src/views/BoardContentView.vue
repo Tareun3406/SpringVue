@@ -1,11 +1,13 @@
 <template>
   <div>
     <board-content></board-content>
-    <form @submit="onCommentSubmit">
-      <textarea v-model="commentInput"></textarea>
-      <button>댓글 쓰기</button>
-    </form>
     <ul>
+      <li>
+        <form @submit="onCommentSubmit">
+          <textarea v-model="commentInput"></textarea>
+          <button>댓글 쓰기</button>
+        </form>
+      </li>
       <board-comment v-for="comment in comments"
                      :comment="comment" :key="comment.no"></board-comment>
     </ul>
@@ -45,9 +47,11 @@ export default {
       }).then(() => {
         router.go(0);
       }).catch((error) => {
-        console.log(error);
+        if (error.response.status === 401) {
+          router.push("/login");
+        }
+        else console.log(error);
       })
-
     }
   }
 
@@ -57,5 +61,11 @@ export default {
 <style scoped>
 form {
   display: flex;
+}
+ul {
+  width: max-content;
+  list-style-type: none;
+  margin: auto;
+  padding-left: 0;
 }
 </style>

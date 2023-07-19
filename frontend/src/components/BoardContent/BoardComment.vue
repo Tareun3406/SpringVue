@@ -4,7 +4,7 @@
       <tr>
         <td>{{ comment.no }}</td>
         <td>{{ comment.writer }}</td>
-        <td>{{ comment.regDate }}</td>
+        <td>{{ transferRegDate }}</td>
       </tr>
       <tr>
 <!--        <td><input type="radio" name="test" :value="comment.no"></td>-->
@@ -57,13 +57,20 @@ export default {
       }).then(() => {
         router.go(0);
       }).catch((error) => {
-        console.log(error);
-      })
+        if (error.response.status === 401) {
+          router.push("/login");
+        }
+        else console.log(error);
+      });
 
     }
   },
   computed: {
-    ...mapState("boardContent",["selectedCommentNo"])
+    ...mapState("boardContent",["selectedCommentNo"]),
+
+    transferRegDate() {
+      return new Date(this.comment.regDate).toLocaleString();
+    }
   }
 }
 </script>

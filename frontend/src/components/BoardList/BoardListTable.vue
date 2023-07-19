@@ -10,7 +10,7 @@
       <th>{{ board.no }}</th>
       <th>{{ board.title }}</th>
       <th>{{ board.writer }}</th>
-      <th>{{ board.regDate }}</th>
+      <th>{{ transferRegDate(board.regDate) }}</th>
     </tr>
     <tr>
       <button type="button" @click="onClickPostButton">게시글 작성</button>
@@ -26,7 +26,7 @@ export default {
   name: 'BoardListTable',
   computed: {
     ...mapState("boardList",["board_list"]),
-    ...mapState(["isLoggedIn"])
+    ...mapState(["isLoggedIn"]),
   },
   methods: {
     onClickPostButton() {
@@ -38,6 +38,9 @@ export default {
     },
     onClickBoardTitle(no) {
       router.push("/boardContent/" + no);
+    },
+    transferRegDate(regDate){
+      return new Date(regDate).toLocaleString();
     }
   }
 }
