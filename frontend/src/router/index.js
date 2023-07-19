@@ -57,6 +57,8 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) =>{
 
+  store.dispatch("CHECK_SESSION_LOGIN").then().catch();
+
   switch (to.name){
     case "myPage" :
       store.dispatch("myPageForm/getMyUserInfo").then(() => next());

@@ -70,7 +70,7 @@ export default {
   }
   ,
   mounted() {
-    this.CHECK_SESSION_LOGIN();
+    // this.CHECK_SESSION_LOGIN();
   }
 }
 </script>
