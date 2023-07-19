@@ -7,6 +7,7 @@ import kr.tareun.practice.repository.BoardRepository;
 import kr.tareun.practice.vo.BoardCommentVO;
 import kr.tareun.practice.vo.BoardContentsVO;
 import kr.tareun.practice.vo.BoardVO;
+import kr.tareun.practice.vo.BoardWriterVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,10 +48,9 @@ public class BoardServiceImpl implements BoardService{
 
 //         DB 에서 값을 가져온뒤 필터링
         Optional<Board> optional = boardRepository.findById(no);
-        optional.orElseThrow(NoSuchElementException :: new);
+        Board board = optional.orElseThrow(NoSuchElementException :: new);
 
         // 댓글 트리구조에서 최상단만 필터링
-        Board board = optional.get();
         List<BoardComment> comments = board.getComments();
         List<BoardCommentVO> filteredCommentsVO = comments.stream()
                 .filter(comment -> comment.getParentComment() == null)
@@ -67,7 +67,16 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void deleteBoardById() {
+    public BoardWriterVO getBoardWriter(long no) {
+        Optional<Board> optional = boardRepository.findById(no);
+        Board board = optional.orElseThrow(NoSuchElementException::new);
+
+        return BoardWriterVO.entityToVO(board);
+    }
+
+    @Override
+    public void deleteBoardById(long no) {
+        boardRepository.deleteById(no);
     }
 
     @Override

@@ -3,6 +3,8 @@ package kr.tareun.practice.entity;
 import jakarta.persistence.*;
 import kr.tareun.practice.vo.BoardCommentVO;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
