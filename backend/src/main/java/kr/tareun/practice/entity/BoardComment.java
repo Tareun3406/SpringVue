@@ -3,8 +3,6 @@ package kr.tareun.practice.entity;
 import jakarta.persistence.*;
 import kr.tareun.practice.vo.BoardCommentVO;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -46,7 +44,7 @@ public class BoardComment {
     @CreatedDate
     private LocalDateTime regDate;
 
-    public static BoardComment voToEntity(BoardCommentVO vo) {
+    public static BoardComment toEntity(BoardCommentVO vo) {
 
         BoardCommentBuilder builder = BoardComment.builder()
                 .parentBoard(Board.builder().no(vo.getParentBoardNo()).build())

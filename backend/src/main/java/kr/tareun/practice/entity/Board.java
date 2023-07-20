@@ -42,7 +42,7 @@ public class Board {
     @OneToMany(mappedBy = "parentBoard")
     private List<BoardComment> comments;
 
-    public static Board voToEntity(BoardVO boardVO) {
+    public static Board toEntity(BoardVO boardVO) {
         return Board.builder()
                 .user(User.builder().username(boardVO.getWriter()).build())
                 .title(boardVO.getTitle())

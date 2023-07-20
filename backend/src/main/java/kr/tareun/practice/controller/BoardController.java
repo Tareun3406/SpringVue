@@ -29,7 +29,7 @@ public class BoardController {
 
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-        } else if (post.getTitle() == null || post.getContent() == null) {  // not null 컬럼 체크
+        } else if (post.getTitle() == null || post.getContent() == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("제목과 내용을 모두 입력해야 합니다.");
         }
 
@@ -41,7 +41,7 @@ public class BoardController {
 
     @GetMapping("/board")
     public BoardContentsVO getBoard(long no, HttpServletResponse response) {
-        try {   // try-catch 조회 결과가 없을경우 예외처리
+        try {
             return boardService.getBoardContents(no);
         } catch (NoSuchElementException e) {
             response.setStatus(Response.SC_NOT_FOUND);
@@ -52,11 +52,10 @@ public class BoardController {
     @DeleteMapping("/board")
     public ResponseEntity<String> deleteBoard(Long no,Principal principal) {
 
-        // 가독성?
         try {
             if (principal == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-            } else if (!boardService.getBoardWriter(no).getWriter().equals(principal.getName())){ // 글 작성자와 요청자가 다를때
+            } else if (!boardService.getBoardWriter(no).getWriter().equals(principal.getName())) { // 글 작성자와 요청자가 다를때
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("작성자가 다릅니다.");
             }
         }catch (NoSuchElementException e) {
