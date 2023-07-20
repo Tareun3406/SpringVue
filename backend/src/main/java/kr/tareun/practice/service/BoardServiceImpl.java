@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -29,14 +28,12 @@ public class BoardServiceImpl implements BoardService{
         return BoardVO.entityToVO(saved);
     }
 
-    @Override
-    public void updateBoard() {
-    }
+
 
     @Override
     public List<BoardVO> getBoardList() {
         List<Board> all = boardRepository.findAll();
-        return all.stream().map(BoardVO::entityToVO).collect(Collectors.toList());
+        return all.stream().map(BoardVO::entityToVO).toList();
     }
 
     @Override
@@ -46,7 +43,7 @@ public class BoardServiceImpl implements BoardService{
 //        return optional.map(BoardContentsVO::entityToVO).orElseThrow(NoSuchElementException::new);
 
 
-//         DB 에서 값을 가져온뒤 필터링
+//         DB 에서 필터링 하지 않고 가져오기
         Optional<Board> optional = boardRepository.findById(no);
         Board board = optional.orElseThrow(NoSuchElementException :: new);
 
@@ -67,7 +64,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public BoardWriterVO getBoardWriter(long no) {
+    public BoardWriterVO getBoardWriter(long no) throws NoSuchElementException{
         Optional<Board> optional = boardRepository.findById(no);
         Board board = optional.orElseThrow(NoSuchElementException::new);
 

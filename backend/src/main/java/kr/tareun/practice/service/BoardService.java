@@ -12,17 +12,14 @@ public interface BoardService {
 
     BoardVO insertBoard(BoardVO boardVO);
 
-    void updateBoard();
-
     List<BoardVO> getBoardList();
 
     BoardContentsVO getBoardContents(long no) throws NoSuchElementException;
 
-    BoardWriterVO getBoardWriter(long no);
+    BoardWriterVO getBoardWriter(long no) throws NoSuchElementException;
 
     void deleteBoardById(long no);
 
     BoardCommentVO insertComment(BoardCommentVO commentVO);
 
-//    List<BoardCommentVO> getCommentListByBoardNo(Long boardNo);
 }

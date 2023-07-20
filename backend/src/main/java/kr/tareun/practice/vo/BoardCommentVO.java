@@ -8,7 +8,6 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @ToString
@@ -51,7 +50,7 @@ public class BoardCommentVO {
 
         if (entity.getChildComments() != null){
             vo.childComments = entity.getChildComments().stream()
-                    .map(BoardCommentVO::entityToVO).collect(Collectors.toList());
+                    .map(BoardCommentVO::entityToVO).toList();
         }
 
         return vo;
