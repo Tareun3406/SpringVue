@@ -12,8 +12,8 @@
       </tr>
       <tr v-show="selectedCommentNo === comment.no">
         <td colspan="3">
-          <form @submit="onCommentSubmit">
-            <textarea v-model="commentInput"></textarea>
+          <form @submit.prevent="onCommentSubmit">
+            <textarea v-model="commentInput" :disabled="!isLoggedIn" :placeholder="needLoginMessage"></textarea>
             <button type="submit">댓글 쓰기</button>
           </form>
         </td>
@@ -28,25 +28,24 @@
 <script>
 
 import axios from "axios";
-import router from "@/router";
-import {mapMutations, mapState} from "vuex";
+import {mapActions, mapMutations, mapState} from "vuex";
 
 export default {
   name: "BoardComment",
   props: ["comment"],
   data() {
     return {
-      commentInput: ""
+      commentInput: "",
     }
   },
   methods: {
     ...mapMutations("boardContent",["setSelectedCommentNo"]),
+    ...mapActions("boardContent",["getContents"]),
 
     onClickedComment() {
       this.setSelectedCommentNo(this.comment.no);
     },
-    onCommentSubmit(event){
-      event.preventDefault();
+    onCommentSubmit(){
 
       axios.post("/boardComment", {
         "parentBoardNo": this.comment.parentBoardNo,
@@ -55,21 +54,28 @@ export default {
       }, {
         headers: { "Content-Type" : "application/json" }
       }).then(() => {
-        router.go(0);
+        this.getContents(this.comment.parentBoardNo);
       }).catch((error) => {
         if (error.response.status === 401) {
-          router.push("/login");
+          alert("로그인이 필요합니다.");
+        } else {
+          console.error(error);
         }
-        else console.log(error);
       });
 
     }
   },
   computed: {
     ...mapState("boardContent",["selectedCommentNo"]),
-
+    ...mapState(["isLoggedIn"]),
     transferRegDate() {
       return new Date(this.comment.regDate).toLocaleString();
+    },
+    needLoginMessage() {
+      if (this.isLoggedIn){
+        return "";
+      }
+      return "로그인이 필요합니다."
     }
   }
 }

@@ -3,11 +3,11 @@
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/boardList">Board</router-link> |
-      <span v-bind:hidden="GET_IS_LOGGED_IN">
+      <span v-bind:hidden="isLoggedIn">
         <router-link to="/login">Login</router-link> |
         <router-link to="/join">Join</router-link>
       </span>
-      <span v-bind:hidden="!GET_IS_LOGGED_IN">
+      <span v-bind:hidden="!isLoggedIn">
         <a href="#" v-on:click="logout">Logout</a> |
         <router-link to="/myPage">MyPage</router-link>
       </span>
@@ -43,7 +43,7 @@ nav a.router-link-exact-active {
 
 <script>
 import axios from "axios";
-import {mapActions, mapGetters, mapMutations} from "vuex";
+import {mapActions, mapMutations, mapState} from "vuex";
 import router from "@/router";
 
 export default {
@@ -66,7 +66,7 @@ export default {
     }
   },
   computed : {
-    ...mapGetters(['GET_IS_LOGGED_IN'])
+    ...mapState(["isLoggedIn"])
   }
   ,
   mounted() {

@@ -3,8 +3,8 @@
     <board-content></board-content>
     <ul>
       <li>
-        <form @submit="onCommentSubmit">
-          <textarea v-model="commentInput"></textarea>
+        <form @submit.prevent="onCommentSubmit">
+          <textarea v-model="commentInput" :disabled="!isLoggedIn" :placeholder="needLoginMessage"></textarea>
           <button>댓글 쓰기</button>
         </form>
       </li>
@@ -16,7 +16,7 @@
 
 <script>
 import BoardContent from "@/components/BoardContent/BoardContent.vue";
-import {mapState} from "vuex";
+import {mapActions, mapState} from "vuex";
 import BoardComment from "@/components/BoardContent/BoardComment.vue";
 import axios from "axios";
 import router from "@/router";
@@ -33,26 +33,35 @@ export default {
     }
   },
   computed: {
-    ...mapState("boardContent",["comments"])
+    ...mapState("boardContent",["comments"]),
+    ...mapState(["isLoggedIn"]),
+    needLoginMessage() {
+      if (this.isLoggedIn){
+        return "";
+      }
+      return "로그인이 필요합니다."
+    }
   },
   methods: {
-    onCommentSubmit(event){
-      event.preventDefault();
+    ...mapActions("boardContent",["getContents"]),
 
+    onCommentSubmit(){
       axios.post("/boardComment", {
         "parentBoardNo": router.currentRoute.params.no,
         "comment": this.commentInput
       }, {
         headers: { "Content-Type" : "application/json" }
       }).then(() => {
-        router.go(0);
+        this.getContents(router.currentRoute.params.no);
       }).catch((error) => {
         if (error.response.status === 401) {
-          router.push("/login");
+          alert("로그인이 필요합니다.");
         }
-        else console.log(error);
+        else {
+          console.log(error);
+        }
       })
-    }
+    },
   }
 
 }

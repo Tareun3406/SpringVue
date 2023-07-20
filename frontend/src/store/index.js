@@ -13,9 +13,6 @@ export default new Vuex.Store({
     isLoggedIn : false
   },
   getters: {
-    GET_IS_LOGGED_IN(state) {
-      return state.isLoggedIn;
-    }
   },
   mutations: {
     SET_LOGGED_IN (state, isLoggedIn) {

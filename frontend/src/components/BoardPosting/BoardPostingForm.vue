@@ -1,5 +1,5 @@
 <template>
-  <form @submit="postBoard">
+  <form @submit.prevent="postBoard">
     <p>
       title <input type="text" v-model="title">
     </p>
@@ -25,12 +25,11 @@ export default {
     }
   },
   methods: {
-    postBoard(event) {
-      event.preventDefault();
-      if ( this.title.trim() !== "" && this.content.trim() !== "")
+    postBoard() {
+      if ( this.title.trim() === "" && this.content.trim() === "") return;
       axios.post("/board",{
-        "title": this.title,
-        "content": this.content
+        title: this.title,
+        content: this.content
       }, {
         headers: {
           "Content-Type":"application/json"
@@ -40,7 +39,7 @@ export default {
       ).catch(
           error => {
             if (error.response.status === 401){
-              router.push("/login");
+              alert("로그인이 필요합니다.");
             }
             console.log(error)
           }

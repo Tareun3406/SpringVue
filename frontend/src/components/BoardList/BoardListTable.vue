@@ -31,7 +31,7 @@ export default {
   methods: {
     onClickPostButton() {
       if (!this.isLoggedIn) {
-        router.push("/login");
+        alert("로그인이 필요합니다.");
         return;
       }
       router.push("/boardPosting");
