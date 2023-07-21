@@ -1,19 +1,16 @@
 package kr.tareun.practice.controller;
 
-import jakarta.servlet.http.HttpServletResponse;
 import kr.tareun.practice.exception.errorcode.AuthErrorCode;
 import kr.tareun.practice.exception.exceptions.RestApiException;
 import kr.tareun.practice.service.BoardService;
 import kr.tareun.practice.vo.*;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 @RestController
@@ -39,11 +36,11 @@ public class BoardController {
         boardService.insertBoard(
                 new BoardVO(principal.getName(), post.getTitle(), post.getContent())
         );
-        return ResponseEntity.ok("게시물이 등록 되었습니다.");
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/board")
-    public BoardContentsVO getBoard(long no, HttpServletResponse response) {
+    public BoardContentsVO getBoard(long no) {
 //        try {
 //        } catch (NoSuchElementException e) {
 //            response.setStatus(Response.SC_NOT_FOUND);
@@ -94,6 +91,6 @@ public class BoardController {
         boardService.insertComment(
                 new BoardCommentVO(comment, principal.getName())
         );
-        return ResponseEntity.status(HttpStatus.OK).body("댓글이 등록 되었습니다.");
+        return ResponseEntity.status(HttpStatus.CREATED).body("댓글이 등록 되었습니다.");
     }
 }
