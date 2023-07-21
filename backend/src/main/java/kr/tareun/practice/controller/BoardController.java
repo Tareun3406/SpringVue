@@ -44,27 +44,33 @@ public class BoardController {
 
     @GetMapping("/board")
     public BoardContentsVO getBoard(long no, HttpServletResponse response) {
-        try {
-            return boardService.getBoardContents(no);
-        } catch (NoSuchElementException e) {
-            response.setStatus(Response.SC_NOT_FOUND);
-            return null;
-        }
+//        try {
+//        } catch (NoSuchElementException e) {
+//            response.setStatus(Response.SC_NOT_FOUND);
+//            return null;
+//        }
+        return boardService.getBoardContents(no);
+
     }
 
     @DeleteMapping("/board")
     public ResponseEntity<String> deleteBoard(Long no,Principal principal) {
 
-        try {
-            if (principal == null) {
-//                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
-                throw new RestApiException(AuthErrorCode.NOT_LOGGED_IN);
+//        try {
+//            if (principal == null) {
+////                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+//
+//            } else if (!boardService.getBoardWriter(no).getWriter().equals(principal.getName())) { // 글 작성자와 요청자가 다를때
+//                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("작성자가 다릅니다.");
+//            }
+//        }catch (NoSuchElementException e) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        }
 
-            } else if (!boardService.getBoardWriter(no).getWriter().equals(principal.getName())) { // 글 작성자와 요청자가 다를때
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("작성자가 다릅니다.");
-            }
-        }catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        if (principal == null) {
+            throw new RestApiException(AuthErrorCode.NOT_LOGGED_IN);
+        } else if (!boardService.getBoardWriter(no).getWriter().equals(principal.getName())) { // 글 작성자와 요청자가 다를때
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("작성자가 다릅니다.");
         }
 
 

@@ -2,6 +2,8 @@ package kr.tareun.practice.service;
 
 import kr.tareun.practice.entity.Board;
 import kr.tareun.practice.entity.BoardComment;
+import kr.tareun.practice.exception.errorcode.BoardErrorCode;
+import kr.tareun.practice.exception.exceptions.RestApiException;
 import kr.tareun.practice.repository.BoardCommentRepository;
 import kr.tareun.practice.repository.BoardRepository;
 import kr.tareun.practice.vo.BoardCommentVO;
@@ -13,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -43,7 +44,7 @@ public class BoardServiceImpl implements BoardService{
 
 //         DB 에서 필터링 하지 않고 가져오기
         Optional<Board> optional = boardRepository.findById(no);
-        Board board = optional.orElseThrow(NoSuchElementException :: new);
+        Board board = optional.orElseThrow(() -> new RestApiException(BoardErrorCode.BOARD_NOT_FOUND) );
 
         List<BoardCommentVO> filteredCommentsVO = filterRootComments(board);
 
@@ -60,7 +61,7 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public BoardWriterVO getBoardWriter(long no) {
         Optional<Board> optional = boardRepository.findById(no);
-        Board board = optional.orElseThrow(NoSuchElementException::new);
+        Board board = optional.orElseThrow(() -> new RestApiException(BoardErrorCode.BOARD_NOT_FOUND));
 
         return BoardWriterVO.entityToVO(board);
     }
